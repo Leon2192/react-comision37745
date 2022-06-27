@@ -1,9 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useParams } from "react-router";
+import ItemDetail from "../ItemDetail/ItemDetail";
+import Spinner from "../Spinner/Spinner";
 
 const ItemDetailContainer = () => {
-  return (
-    <div>ItemDetailContainer</div>
-  )
-}
+  const [detail, setDetail] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  const { itemId } = useParams();
+
+  useEffect(() => {
+    axios
+      .get(`https://fakestoreapi.com/products/${itemId}`)
+      .then((res) => setDetail(res.data))
+      .then(setLoading(false));
+  }, [itemId]);
+
+  console.log(detail);
+
+  return <div>{loading ? <Spinner /> : <ItemDetail detail={detail} />}</div>;
+};
 
 export default ItemDetailContainer;
