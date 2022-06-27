@@ -1,8 +1,10 @@
 import React from 'react'
 
-const ItemList = () => {
+const ItemList = ({ productos }) => {
   return (
-    <div>ItemList</div>
+    <div>
+      ItemList
+    </div>
   )
 }
 
