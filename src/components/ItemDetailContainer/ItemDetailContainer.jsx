@@ -5,9 +5,8 @@ import ItemDetail from "../ItemDetail/ItemDetail";
 import Spinner from "../Spinner/Spinner";
 
 const ItemDetailContainer = () => {
-  const [detail, setDetail] = useState("");
+  const [detail, setDetail] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const { itemId } = useParams();
 
   useEffect(() => {

@@ -2,10 +2,13 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import ItemList from "../ItemList/ItemList";
 import { useParams } from "react-router";
+import Spinner from "../Spinner/Spinner";
 
 const ItemListContainer = () => {
   const [productos, setProductos] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const { categoryId } = useParams();
 
   const filterProducts = productos.filter(function productosFiltrados(cat) {
@@ -20,22 +23,34 @@ const ItemListContainer = () => {
   useEffect(() => {
     axios
       .get("https://fakestoreapi.com/products")
-      .then((res) => setProductos(res.data));
+      .then((res) => setProductos(res.data))
+      .then(setLoading(false));
     console.log(productos);
   }, []);
 
   useEffect(() => {
     axios
       .get(`https://fakestoreapi.com/products/${categoryId}`)
-      .then((res) => setCategories(res));
+      .then((res) => setCategories(res))
+      .then(setLoading(false));
     console.log(categories);
   }, [categoryId]);
   console.log(categories);
 
   return (
     <div>
-      <h1>ItemListContainer</h1>
-      <ItemList productos={productos} categories={filterProducts} filterProducts={filterProducts} />
+      {loading ? (
+        <Spinner />
+      ) : (
+        <div>
+          <h1>ItemListContainer</h1>
+          <ItemList
+            productos={productos}
+            categories={filterProducts}
+            filterProducts={filterProducts}
+          />{" "}
+        </div>
+      )}
     </div>
   );
 };

@@ -1,31 +1,26 @@
 import { Button } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { CartContext } from "../../Provider/CartContext";
 
 const ItemCount = () => {
-  const [count, setCount] = useState(0);
-
-  const handleAumentar = () => {
-    const value = count + 1;
-    setCount(value);
-  };
-  const handleRestar = () => {
-    if (count > 0) {
-      const value = count - 1;
-      setCount(value);
-    }
-  };
+  const { counts, handleAumentar, handleRestar } = useContext(CartContext);
   return (
     <div>
       <div>
-        <Button onClick={handleAumentar} type="primary" danger>
+        <Button
+          variant="outlined"
+          onClick={handleAumentar}
+          type="primary"
+          danger
+        >
           +
         </Button>
-        <Button onClick={handleRestar} danger>
+        <Button variant="contained" onClick={handleRestar} danger>
           -
         </Button>
       </div>
       <div>
-        <h3>Cantidad:{count}</h3>
+        <h3>Cantidad:{counts}</h3>
       </div>
     </div>
   );

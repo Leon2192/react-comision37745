@@ -1,37 +1,33 @@
 import React from "react";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import "./Item.css";
 
 const Item = ({ producto }) => {
-
   return (
-    <Link to={"/item/" + producto.id}>
-      <Card sx={{ maxWidth: 345 }}>
-        <Typography gutterBottom variant="h5" component="div">
-          {producto.title}
-        </Typography>
-        <CardMedia
-          component="img"
-          height="300"
-          image={producto.image}
-          alt="green iguana"
-        />
-        <CardContent>
-          <Typography variant="body2" color="text.secondary">
-            {producto.price}
+    <div className="item">
+      <NavLink to={"/item/" + producto.id}  style={{ textDecoration: 'none'}}>
+        <Card sx={{ maxWidth: 350 }}>
+          <Typography gutterBottom variant="h5" component="div">
+            {producto.title}
           </Typography>
-        </CardContent>
-        <CardActions>
-          <Button size="small">Ver</Button>
-          <Button size="small">Learn More</Button>
-        </CardActions>
-      </Card>
-    </Link>
+          <CardMedia
+            component="img"
+            height={300}
+            image={producto.image}
+            alt={producto.title}
+          />
+          <CardContent>
+            <Typography variant="body2" color="text.secondary">
+              {producto.price}
+            </Typography>
+          </CardContent>
+        </Card>
+      </NavLink>
+    </div>
   );
 };
 

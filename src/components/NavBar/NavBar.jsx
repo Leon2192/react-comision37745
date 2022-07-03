@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -14,13 +14,15 @@ import AdbIcon from "@mui/icons-material/Adb";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Badge } from "@mui/material";
 import { Link } from "react-router-dom";
+import { CartContext } from "../../Provider/CartContext";
 
 const ResponsiveAppBar = () => {
+  const { cart } = useContext(CartContext);
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -36,7 +38,7 @@ const ResponsiveAppBar = () => {
               textDecoration: "none",
             }}
           >
-            LOGO
+            ECOMMERCEReact
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -89,32 +91,45 @@ const ResponsiveAppBar = () => {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <Link to={"/category/jewelery"}>
+            <Link to={"/category/jewelery"} style={{ textDecoration: "none" }}>
               <Button sx={{ my: 2, color: "white", display: "block" }}>
                 Joyería
               </Button>
             </Link>
-            <Link to={"/category/electronics"}>
+            <Link
+              to={"/category/electronics"}
+              style={{ textDecoration: "none" }}
+            >
               <Button sx={{ my: 2, color: "white", display: "block" }}>
                 Electrónica
               </Button>
             </Link>
-            <Link to={"/category/men's clothing"}>
+            <Link
+              to={"/category/men's clothing"}
+              style={{ textDecoration: "none" }}
+            >
               <Button sx={{ my: 2, color: "white", display: "block" }}>
                 Ropa masculina
               </Button>
             </Link>
-            <Link to={"/category/women's clothing"}>
+            <Link
+              to={"/category/women's clothing"}
+              style={{ textDecoration: "none" }}
+            >
               <Button sx={{ my: 2, color: "white", display: "block" }}>
                 Ropa femenina
               </Button>
             </Link>
           </Box>
-
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton sx={{ p: 0 }}>
-                <Badge badgeContent={4} color="primary">
+                <Badge
+                  badgeContent={cart.reduce(
+                    (acc, prod) => acc + prod.amount,
+                    0
+                  )}
+                >
                   <ShoppingCartIcon />
                 </Badge>
               </IconButton>
